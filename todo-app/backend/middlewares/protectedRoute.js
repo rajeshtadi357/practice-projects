@@ -4,7 +4,7 @@ import { statusCodes } from "../utils/statusCodes.js"
 
 export const protected_route=(req,res,next)=>{
     const token=req.headers.authorization
-    console.log(token)
+    
     try {
         if(!token){return res.status(statusCodes.UNAUTHORIZED).json({msg:"unauthenticated user"})}
 

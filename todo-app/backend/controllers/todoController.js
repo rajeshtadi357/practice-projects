@@ -10,7 +10,7 @@ export const createTodo=async (req,res)=>{
         const data=await Todo.create({todo,user:id})
         return res.status(statusCodes.OK).json({msg:"todo created", data})
     } catch (error) {
-        console.log(error)
+        
         return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg:"internal server error"})
     }
 }
@@ -22,12 +22,12 @@ export const deleteTodo=async (req,res)=>{
 
         // check if post exists or not
       const del = await Todo.findByIdAndDelete(id)
-      console.log(del)
+      
       return res.status(statusCodes.OK).json({msg:"todo deleted"})
 
 
     } catch (error) {
-        console.log(error)
+        
       return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg:"internal server error"})
     }
 }
@@ -44,7 +44,7 @@ export const updateTodo=async (req,res)=>{
 
 
     } catch (error) {
-        console.log(error)
+        
       return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg:"internal server error"})
     }
 }
@@ -55,11 +55,11 @@ export const getAllTodo=async (req,res)=>{
     try {
         const todos=await Todo.find({user:id})
         if(todos.length<=0){return res.status(200).json({msg:"no todos to display-please add a todo"})}
-        console.log(todos)
+        
         return res.status(200).json({msg:"todos", todos})
 
     } catch (error) {
-        console.log(error);
+      
         return res.status(500).json({msg:"internal server error"})
         
     }

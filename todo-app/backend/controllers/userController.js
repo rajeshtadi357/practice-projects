@@ -13,14 +13,14 @@ export const signup=async (req,res)=>{
     const {name,email, password}=req.body
 
     try {
-        console.log(name,email,password)
+        
         const {success}= userSignup.safeParse({name,email,password})
-        console.log(success)
+        
         if(!success){return res.status(statusCodes.BAD_REQUEST).json({msg:"invalid inputs"})}
  
         // if input validation is success then hash the password
         const hashedPassword=await bcrypt.hash(password,10)
-        console.log(hashedPassword)
+       
 
         // after hashing save to db
         // first check if user with this email exist or not
@@ -33,7 +33,7 @@ export const signup=async (req,res)=>{
         
     } catch (error) {
         return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg:"internal server error"})
-        console.log(error)
+       
     }
 
 }
@@ -62,7 +62,7 @@ export const login=async (req,res)=>{
         return res.status(statusCodes.OK).json({msg:"user logged in successfully", token})
     } catch (error) {
         return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg:"insternal server error"})
-        console.log(error)
+        
     }
 }
 
@@ -82,7 +82,7 @@ export const userInfo=async (req,res)=>{
         return res.status(statusCodes.OK).json({msg:"user details", user})
 
     } catch (error) {
-        console.log(error)
+        
         return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg:"internal server error"})
     }
 }
