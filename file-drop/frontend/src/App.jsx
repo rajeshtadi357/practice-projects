@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { Hero, Input, PreviewImg, Compress, Features, HowItWorks, Footer, Faq } from './components/comp.js'
+import { Hero, Input, PreviewImg, Compress, Features, HowItWorks, Footer, Faq, SkeletonLoader } from './components/comp.js'
 import { useEffect, useState } from 'react'
 import cleanupUrls from './utils/cleanup.js'
 import { clearFileName } from './features/fileNameSlice.js'
@@ -7,12 +7,14 @@ import { clearCompressInfo } from './features/compressSlice.js'
 import { clearInput } from './features/inputSlice.js'
 import { Toaster } from 'react-hot-toast' // ✅ Added
 
+
 function App() {
   const uploadFileName = useSelector((state) => state.fileName.name)
   const uploadImg = useSelector((state) => state.inputImg)
   const compressImg = useSelector((state) => state.compressImg)
   const dispatch = useDispatch()
-  
+  const [compressing, setCompressing]=useState(false)
+ 
 
   useEffect(() => {
     return () => {
@@ -50,13 +52,13 @@ function App() {
           <section className="space-y-12">
             {/* Preview images */}
             <div className="flex flex-col lg:flex-row flex-wrap gap-10 lg:gap-16 items-center justify-center">
-              <PreviewImg Img={uploadImg} alt="upload-preview" />
-              {compressImg.blobUrl && <PreviewImg Img={compressImg} alt="compress-preview" />}
+              {<PreviewImg Img={uploadImg} alt="upload-preview" />}
+              {compressImg.blobUrl && (compressing? <SkeletonLoader/>: <PreviewImg Img={compressImg} alt="compress-preview" />)}
             </div>
 
             {/* Compress button */}
             <div className="flex justify-center">
-              <Compress />
+              <Compress setCompressing={setCompressing}  />
             </div>
 
             {/* Download button */}

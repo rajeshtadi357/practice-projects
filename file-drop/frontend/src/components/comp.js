@@ -6,6 +6,6 @@ import Features from "./Features";
 import HowItWorks from "./HowItWorks";
 import Footer from "./Footer";
 import Faq from './Faq'
+import SkeletonLoader from "./SkeletonLoader";
 
-
-export {Hero, Input, PreviewImg, Compress, HowItWorks, Features, Footer, Faq}
+export {Hero, Input, PreviewImg, Compress, HowItWorks, Features, Footer, Faq, SkeletonLoader}

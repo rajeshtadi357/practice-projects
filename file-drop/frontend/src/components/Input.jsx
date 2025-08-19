@@ -15,6 +15,7 @@ const Input = () => {
   const dispatch = useDispatch()
 
   const handleChange = async (e) => {
+    
     cleanupUrls(uploadImg.blobUrl, compressImg.blobUrl)
 
     const file = e.target.files[0]
@@ -38,7 +39,7 @@ const Input = () => {
       toast.success('file uploaded successfully')
       
     } catch (error) {
-     
+      setUploading(false)
       console.log(error)
       toast.error('error in server, please try again later')
     }

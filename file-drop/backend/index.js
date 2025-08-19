@@ -1,5 +1,5 @@
 import express from 'express'
-import cors from  'cors'
+import cors from 'cors'
 import { compressImage, uploadImage } from './controllers/controllers.js'
 import { cleanUp } from './handlers/handler.js'
 import multerConfig from './config/multerConfig.js'
@@ -9,9 +9,9 @@ configDotenv()
 
 
 
-const port=process.env.PORT || 3000
-const upload=multerConfig('./uploads')
-const app=express()
+const port = process.env.PORT || 3000
+const upload = multerConfig('./uploads')
+const app = express()
 
 // middlewarewsss====>
 
@@ -23,13 +23,13 @@ app.use(express.json())
 
 
 /// rooutes =====>>>
-app.get('/', (req,res)=>{
-    res.json({msg:"file handler backend"})
+app.get('/', (req, res) => {
+  res.json({ msg: "file handler backend" })
 })
 app.post('/uploads', upload.single('image'), uploadImage)
-app.get('/compress/:filename', compressImage )
+app.get('/compress/:filename', compressImage)
 
-app.listen(port, ()=>{console.log('your server is running on port 3000')})
+app.listen(port, () => { console.log('your server is running on port 3000') })
 
 
 
@@ -40,4 +40,4 @@ app.listen(port, ()=>{console.log('your server is running on port 3000')})
 setInterval(() => {
   cleanUp('./uploads'); // 1 hour in ms
   cleanUp('./compress');
-}, 1000*60*100); // every 1 hour
+}, 1000 * 60 * 30); // every 5 minutes

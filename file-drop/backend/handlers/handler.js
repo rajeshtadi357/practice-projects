@@ -60,6 +60,11 @@ const compressImageToTargetSize=async(inputPath,targetKb)=>{
         console.log(`got the best buffer with quality ${mid} and kb : ${bufferSize}`)
       }
     }
+
+    if (!bestBuffer) {
+      console.warn(`⚠️ Could not reach target ${targetKb} KB, returning smallest possible size instead.`)
+      bestBuffer = await sharp(inputPath).jpeg({ quality: 1 }).toBuffer()
+    }
     return bestBuffer
 }
 

@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCompressInfo } from '../features/compressSlice'
 import toast from 'react-hot-toast'
 import axiosInstance from '../config/config'
+import cleanupUrls from '../utils/cleanup'
 
-const Compress = () => {
+const Compress = ({ setCompressing , setCompressedKb}) => {
   const uploadFileName = useSelector((state) => state.fileName.name)
   const range = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
   const [size, setSize] = useState(range[0])
+  const compressImgBlob=useSelector(state=>state.compressImg)
   const dispatch = useDispatch()
 
   const selectSize = (e) => {
@@ -16,20 +18,29 @@ const Compress = () => {
   }
 
   const compressImg = async () => {
+    // cleanup 
+    cleanupUrls(null,compressImgBlob.blobUrl)
     try {
       if (size == 0) return toast.error('please select a valid size to compress')
       if (!uploadFileName) return toast.error('File may have been deleted, please upload again')
-
+       
+      setCompressing(true)
       const res = await axiosInstance.get(`compress/${uploadFileName}`, { // base url with instance
         params: { size: size },
         responseType: 'blob',
+        
       })
 
       dispatch(
         setCompressInfo({ blob: URL.createObjectURL(res.data), size: res.data.size })
       )
+      setCompressing(false)
+      if(size<=10){
+        return toast.success(`Could not reach target ${size} KB, returning smallest possible size instead.`)
+      }
       toast.success('Image compressed, please download')
     } catch (error) {
+      setCompressing(false)
       console.log(error)
       toast.error('Error occurred, please try again later')
     }
