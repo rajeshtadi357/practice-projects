@@ -42,7 +42,7 @@ function App() {
       {/* Main content wrapper */}
       <div className="container mx-auto px-4 sm:px-8 lg:px-20 py-12 sm:py-16 lg:py-24 space-y-20">
         <Hero />
-        <section id="input-section" className="max-w-4xl mx-auto">
+        <section id="upload" className="max-w-4xl mx-auto">
           <Input />
         </section>
 

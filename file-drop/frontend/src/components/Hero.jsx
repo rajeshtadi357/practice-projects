@@ -16,7 +16,7 @@ const Hero = () => {
 
         {/* CTA */}
         <a
-          href="#input-section"
+          href="#upload"
           className="inline-block px-8 sm:px-10 md:px-12 py-3 sm:py-4 md:py-5 bg-white text-black font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 text-base sm:text-lg md:text-xl"
         >
           Upload & Compress Now

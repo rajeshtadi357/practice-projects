@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCompressInfo } from '../features/compressSlice'
 import toast from 'react-hot-toast'
+import axiosInstance from '../config/config'
 
 const Compress = () => {
   const uploadFileName = useSelector((state) => state.fileName.name)
@@ -19,7 +20,7 @@ const Compress = () => {
       if (size == 0) return toast.error('please select a valid size to compress')
       if (!uploadFileName) return toast.error('File may have been deleted, please upload again')
 
-      const res = await axios.get(`http://localhost:3000/compress/${uploadFileName}`, {
+      const res = await axiosInstance.get(`compress/${uploadFileName}`, { // base url with instance
         params: { size: size },
         responseType: 'blob',
       })

@@ -6,6 +6,7 @@ import { clearInput, setInput } from '../features/inputSlice'
 import cleanupUrls from '../utils/cleanup'
 import { clearCompressInfo } from '../features/compressSlice'
 import toast from 'react-hot-toast'
+import axiosInstance from '../config/config'
 
 const Input = () => {
   const uploadImg = useSelector((state) => state.inputImg)
@@ -23,7 +24,7 @@ const Input = () => {
     
       const formData = new FormData()
       formData.append('image', file)
-      const res = await axios.post('http://localhost:3000/uploads', formData)
+      const res = await axiosInstance.post('uploads', formData)
 
       dispatch(setFileName({ fileName: res.data.filename }))
       dispatch(
