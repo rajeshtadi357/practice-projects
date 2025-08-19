@@ -53,14 +53,14 @@ function App() {
             {/* Preview images */}
             <div className="flex flex-col lg:flex-row flex-wrap gap-10 lg:gap-16 items-center justify-center">
               {uploading?<SkeletonLoader/>: <PreviewImg Img={uploadImg} alt="upload-preview" />}
-              {compressImg.blobUrl && (compressing? <SkeletonLoader/>: <PreviewImg Img={compressImg} alt="compress-preview" />)}
+              
             </div>
 
             {/* Compress button */}
             <div className="flex justify-center">
               <Compress setCompressing={setCompressing}  />
             </div>
-
+             {compressImg.blobUrl && (compressing? <SkeletonLoader/>: <PreviewImg Img={compressImg} alt="compress-preview" />)}
             {/* Download button */}
             {compressImg.blobUrl && (
               <div className="flex justify-center">
