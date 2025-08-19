@@ -29,6 +29,8 @@ const cleanUp = (folderPath) => {
 };
 
 const compressImageToTargetSize=async(inputPath,targetKb)=>{
+
+    
    
     console.log('starting binary search operation to get the desired compressed size')
     let low=1

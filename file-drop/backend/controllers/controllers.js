@@ -24,6 +24,9 @@ const compressImage=async(req,res)=>{
         const compressPath=`./compress/${filename}`
 
         const buffer=await compressImageToTargetSize(`./uploads/${filename}`,kb)
+        if(!fs.existsSync('./compress')){
+            fs.mkdirSync('./compress')
+        }
         fs.writeFileSync(compressPath,buffer)
         res.download(compressPath)
     } catch (error) {
