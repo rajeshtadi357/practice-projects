@@ -8,7 +8,7 @@ import { clearCompressInfo } from '../features/compressSlice'
 import toast from 'react-hot-toast'
 import axiosInstance from '../config/config'
 
-const Input = () => {
+const Input = (setUploading) => {
   const uploadImg = useSelector((state) => state.inputImg)
   const compressImg = useSelector((state) => state.compressImg)
   const inputRef = useRef()
@@ -16,10 +16,12 @@ const Input = () => {
 
   const handleChange = async (e) => {
     
+    
     cleanupUrls(uploadImg.blobUrl, compressImg.blobUrl)
 
     const file = e.target.files[0]
     if (!file) return toast.error('Please select a file')
+      setUploading(true)
 
     try {
     
@@ -35,7 +37,7 @@ const Input = () => {
           size: file.size,
         })
       )
-     
+      setUploading(false)
       toast.success('file uploaded successfully')
       
     } catch (error) {
