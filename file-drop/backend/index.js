@@ -3,16 +3,21 @@ import cors from  'cors'
 import { compressImage, uploadImage } from './controllers/controllers.js'
 import { cleanUp } from './handlers/handler.js'
 import multerConfig from './config/multerConfig.js'
+import { configDotenv } from 'dotenv'
+
+configDotenv()
 
 
 
-
+const port=process.env.PORT || 3000
 const upload=multerConfig('./uploads')
 const app=express()
 
 // middlewarewsss====>
 
-app.use(cors())
+app.use(cors({
+  origin:process.env.FRONTEND_URL || "https://compres-my-image.vercel.app"
+}))
 app.use(express.json())
 
 
@@ -24,7 +29,7 @@ app.get('/', (req,res)=>{
 app.post('/uploads', upload.single('image'), uploadImage)
 app.get('/compress/:filename', compressImage )
 
-app.listen(3000, ()=>{console.log('your server is running on port 3000')})
+app.listen(port, ()=>{console.log('your server is running on port 3000')})
 
 
 
