@@ -1,6 +1,6 @@
 import React from "react";
 
-const SkeletonLoader = ({ type = "square", size = "h-32 w-32" }) => {
+const SkeletonLoader = ({ type = "square", size = "h-40 w-40" }) => {
   let shapeClass = "";
 
   if (type === "circle") {

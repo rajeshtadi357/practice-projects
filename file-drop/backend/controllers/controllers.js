@@ -3,6 +3,8 @@ import fs from 'fs'
 
 
 const uploadImage=async(req,res)=>{
+    console.log("uploading image");
+    
       const file=req.file
       
     try {
