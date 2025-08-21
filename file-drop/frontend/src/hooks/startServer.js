@@ -17,12 +17,12 @@ import toast from "react-hot-toast";
             console.log(res)
             if(res.status==200){
                 setIsServerReady(true)
-                toast.success("Server is ready",{id:toasttId})
+                toast.success("Server is ready", {id:toasttId})
             }
         } catch (error) {
             console.log(error)
             
-           if(error.request && !error.reponse){
+           if(error.request && !error.response){
              setErr("server is down please try again later")
             toast.error("server is down, please try again later",{id:toasttId})
            }
