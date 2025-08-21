@@ -5,7 +5,7 @@ import cleanupUrls from './utils/cleanup.js'
 import { clearFileName } from './features/fileNameSlice.js'
 import { clearCompressInfo } from './features/compressSlice.js'
 import { clearInput } from './features/inputSlice.js'
-import { Toaster } from 'react-hot-toast' // ✅ Added
+
 import useStartServer from './hooks/startServer.js'
 
 
@@ -14,7 +14,7 @@ function App() {
   const compressImg = useSelector((state) => state.compressImg)
   const dispatch = useDispatch()
   
-  const {isServerReady,err}=useStartServer()
+  const {err}=useStartServer()
 
   useEffect(() => {
     return () => {
@@ -28,18 +28,7 @@ function App() {
   return (
     <div className="min-h-screen bg-black text-white font-sans">
       {/* ✅ Toast Notification Renderer */}
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          duration:2000,
-          style: {
-            background: '#1f2937',
-            color: '#fff',
-            borderRadius: '8px',
-            padding: '12px 16px',
-          },
-        }}
-      />
+      
 
       {
         err &&

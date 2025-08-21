@@ -36,7 +36,7 @@ import toast from "react-hot-toast";
     },[])
 
 
-    return {isServerReady,err }
+    return {err }
    
 }
 
