@@ -18,8 +18,12 @@ const Input = () => {
   const [compressing, setCompressing] = useState(false)
 
   const handleChange = async (e) => {
-    setUploading(true)
     cleanupUrls(uploadImg.blobUrl, compressImg.blobUrl)
+    dispatch(clearFileName())
+    dispatch(clearInput())
+    dispatch(clearCompressInfo())
+    setUploading(true)
+    
 
     const file = e.target.files[0]
     if (!file) {
@@ -115,7 +119,7 @@ const Input = () => {
       </div>
 
       {/* === Compress Controls === */}
-      {fileName.name && <Compress setCompressing={setCompressing} />}
+      {fileName.name && <Compress uploadImg={uploadImg} setCompressing={setCompressing} />}
       {compressImg.blobUrl && 
           <a
                   href={compressImg.blobUrl}

@@ -39,7 +39,6 @@ const compressImageToTargetSize=async(inputPath,targetKb)=>{
 
     const uploadedBuffer=fs.readFileSync(inputPath)
     const uploadedSize=uploadedBuffer.length/1024
-    console.log(`uploadedsize : ${uploadedSize} and targetsie : ${targetKb}`)
     if(targetKb>uploadedSize){
         console.log("Image is already within target size, no compression needed.");
         return uploadedBuffer ;
@@ -50,9 +49,8 @@ const compressImageToTargetSize=async(inputPath,targetKb)=>{
       const buffer=await sharp(inputPath).jpeg({quality:mid}).toBuffer()
 
       const bufferSize=buffer.length/1024
-      console.log(`img compressed with quality ${mid}% , and kb: ${bufferSize}`)
       if(bufferSize>targetKb){
-        console.log(`${bufferSize} > ${targetKb}, so running the search op again`)
+        
          high=mid-1
       }else{
         bestBuffer=buffer
@@ -64,7 +62,7 @@ const compressImageToTargetSize=async(inputPath,targetKb)=>{
     if (!bestBuffer) {
       console.log(`⚠️ Could not reach target ${targetKb} KB, returning smallest possible size instead.`)
       bestBuffer = await sharp(inputPath).jpeg({ quality: 1 }).toBuffer()
-      console.log(bestBuffer)
+      
     }
     return bestBuffer
 }
