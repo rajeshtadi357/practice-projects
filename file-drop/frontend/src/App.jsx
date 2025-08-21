@@ -6,6 +6,7 @@ import { clearFileName } from './features/fileNameSlice.js'
 import { clearCompressInfo } from './features/compressSlice.js'
 import { clearInput } from './features/inputSlice.js'
 import { Toaster } from 'react-hot-toast' // ✅ Added
+import useStartServer from './hooks/startServer.js'
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   const compressImg = useSelector((state) => state.compressImg)
   const dispatch = useDispatch()
   
+  const {isServerReady,err}=useStartServer()
 
   useEffect(() => {
     return () => {
@@ -38,6 +40,15 @@ function App() {
           },
         }}
       />
+
+      {
+        err &&
+       <div className="w-full bg-blue-500/90 text-white px-4 py-3 rounded-md shadow-md text-center text-sm sm:text-base">
+          🚨 Server is down, please try again later.
+      </div>
+
+ 
+      }
 
       {/* Main content wrapper */}
       <div className="container mx-auto px-4 sm:px-8 lg:px-20 py-12 sm:py-16 lg:py-24 space-y-20">
