@@ -20,7 +20,10 @@ const PreviewImg = ({ Img, alt }) => {
               <span className="font-semibold text-white">File Name:</span> {Img.name}
             </p>
             <p className="text-gray-300 text-sm sm:text-base">
-              <span className="font-semibold text-white">Size:</span> {(Img.size / 1024).toFixed(2)} KB
+              <span className="font-semibold text-white">Size:</span>{" "}
+              {Img.size >= 1024 * 1024
+                ? (Img.size / (1024 * 1024)).toFixed(2) + " MB"
+                : (Img.size / 1024).toFixed(2) + " KB"}
             </p>
           </>
         ) : (
