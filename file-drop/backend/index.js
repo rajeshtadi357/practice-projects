@@ -40,4 +40,4 @@ app.listen(port, () => { console.log('your server is running on port 3000') })
 setInterval(() => {
   cleanUp('./uploads'); // 1 hour in ms
   cleanUp('./compress');
-}, 1000 * 60 * 30); // every 5 minutes
+}, 1000 * 60 * 10); // every 5 minutes
