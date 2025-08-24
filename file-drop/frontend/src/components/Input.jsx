@@ -6,7 +6,7 @@ import cleanupUrls from '../utils/cleanup'
 import { clearCompressInfo } from '../features/compressSlice'
 import toast from 'react-hot-toast'
 import axiosInstance from '../config/config'
-import { SkeletonLoader, PreviewImg, Compress } from './comp.js'
+import { SkeletonLoader, PreviewImg, Compress,  } from './comp.js'
 
 const Input = () => {
   const uploadImg = useSelector((state) => state.inputImg)
@@ -94,7 +94,9 @@ const Input = () => {
       <div className="flex flex-col sm:flex-row gap-6 w-full max-w-5xl justify-center items-center">
         {/* Uploaded Image */}
         {uploading ? (
-          <SkeletonLoader />
+        
+            <SkeletonLoader />
+          
         ) : (
           fileName.name && (
             <div className="flex flex-col items-center gap-4 w-full sm:w-1/2">
@@ -106,7 +108,9 @@ const Input = () => {
 
         {/* Compressed Image */}
         {compressing ? (
-          <SkeletonLoader />
+          
+            <SkeletonLoader />
+           
         ) : (
           compressImg.blobUrl && (
             <div className="flex flex-col items-center gap-4 w-full sm:w-1/2">

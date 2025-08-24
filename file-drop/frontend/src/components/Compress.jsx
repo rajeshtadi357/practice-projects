@@ -5,7 +5,7 @@ import { setCompressInfo } from '../features/compressSlice'
 import toast from 'react-hot-toast'
 import axiosInstance from '../config/config'
 import cleanupUrls from '../utils/cleanup'
-import {SkeletonLoader, PreviewImg} from './comp.js'
+
 
 
 const Compress = ({uploadImg, setCompressing}) => {

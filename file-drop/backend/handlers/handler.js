@@ -28,43 +28,47 @@ const cleanUp = (folderPath) => {
   });
 };
 
-const compressImageToTargetSize=async(inputPath,targetKb)=>{
 
-    
-   
-    console.log('starting binary search operation to get the desired compressed size')
-    let low=1
-    let high=100
-    let bestBuffer=null;
 
-    const uploadedBuffer=fs.readFileSync(inputPath)
-    const uploadedSize=uploadedBuffer.length/1024
-    if(targetKb>uploadedSize){
-        console.log("Image is already within target size, no compression needed.");
-        return uploadedBuffer ;
+
+
+const compressImageToTargetSize = async (inputPath, targetKb, outputPath) => {
+  console.log("Starting binary search for target size:", targetKb, "KB");
+
+  let low = 1;
+  let high = 100;
+  let bestQuality = 100;
+
+ 
+
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+
+    // write compressed file
+    await sharp(inputPath).jpeg({ quality: mid }).toFile(outputPath);
+
+    const compressedSize = fs.statSync(outputPath).size / 1024;
+
+    if (compressedSize > targetKb) {
+      high = mid - 1;
+    } else {
+      bestQuality = mid;
+      low = mid + 1;
+      console.log(`✅ Candidate at quality=${mid}, size=${compressedSize} KB`);
     }
+  }
 
-    while(low<=high){
-      let mid=Math.floor((low+high)/2)
-      const buffer=await sharp(inputPath).jpeg({quality:mid}).toBuffer()
+  // Final pass: write with best quality found
+  await sharp(inputPath).jpeg({ quality: bestQuality }).toFile(outputPath);
+  console.log("Final chosen quality:", bestQuality);
+};
 
-      const bufferSize=buffer.length/1024
-      if(bufferSize>targetKb){
-        
-         high=mid-1
-      }else{
-        bestBuffer=buffer
-        low=mid+1;
-        console.log(`got the best buffer with quality ${mid} and kb : ${bufferSize}`)
-      }
-    }
 
-    if (!bestBuffer) {
-      console.log(`⚠️ Could not reach target ${targetKb} KB, returning smallest possible size instead.`)
-      bestBuffer = await sharp(inputPath).jpeg({ quality: 1 }).toBuffer()
-      
-    }
-    return bestBuffer
+const removeFile=(path)=>{
+   fs.unlink(path, (err)=>{
+      if(err) return console.log(err)
+      else console.log(`${path} deleted`)
+   })
 }
 
-export {cleanUp, compressImageToTargetSize}
+export {cleanUp, compressImageToTargetSize, removeFile}
